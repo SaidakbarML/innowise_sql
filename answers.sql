@@ -1,12 +1,12 @@
 --1 Output the number of movies in each category, sorted descending.
 SELECT
     c.category_id,
-    COUNT(fc.film_id)
+    COUNT(fc.film_id) as film_count
 FROM film_category fc
 JOIN category c
     ON c.category_id = fc.category_id
 GROUP BY c.category_id
-ORDER BY c.category_id;
+ORDER BY film_count DESC;
 
 
 --2 Output the top 10 actors whose movies were rented the most, sorted in descending order.
@@ -70,7 +70,7 @@ WITH temp_table AS (
     JOIN category c
         ON c.category_id = fc.category_id
     WHERE c.name = 'Children'
-    GROUP BY a.first_name
+    GROUP BY a.actor_id,a.first_name,a.last_name
     ORDER BY category_count DESC
 )
 SELECT
